@@ -12,15 +12,21 @@ binDir        = "bin"
 # Dependencies
 
 requires "nim >= 1.2.0"
+requires "docopt"
 
-
-# Tasks
 
 import std / [os, strutils]
-task r, "make link and run":
-  exec "nimble -d:Version=v$1 build" % [version]
-  exec "nimble ex"
 
-task ex, "run without build":
-  withDir binDir:
-    exec "." / bin[0]
+# Before
+
+before build:
+  let versionFile = srcDir / bin[0] & "pkg" / "version.nim"
+  versionFile.parentDir.mkDir
+  versionFile.writeFile("const Version* = \"$1\"\n" % version)
+
+
+# After
+
+after build:
+  let versionFile = srcDir / bin[0] & "pkg" / "version.nim"
+  versionFile.writeFile("const Version* = \"\"\n")
