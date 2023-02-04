@@ -11,8 +11,14 @@ $ nimble install
 
 ## Usage
 
-```
-$ colortest
-```
+default view
 
-then show 256 color test.
+![normal](./docs/colortest.png)
+
+fix fgcolor by using -f option
+
+![fgcolor](./docs/colortest-fg.png)
+
+fix bgcolor by using -b option
+
+![bgcolor](./docs/colortest-bg.png)
